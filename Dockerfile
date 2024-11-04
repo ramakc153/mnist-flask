@@ -6,7 +6,7 @@ WORKDIR /app
 
 COPY . ./
 
-RUN pip install -r pyproject.toml
+RUN uv pip install -r pyproject.toml
 EXPOSE 5000
 
 CMD ["uv","run", "app/main.py"]
