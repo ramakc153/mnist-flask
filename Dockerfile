@@ -11,4 +11,4 @@ RUN uv pip install -r pyproject.toml
 ENV HOST 0.0.0.0
 EXPOSE 5000
 
-CMD ["uv","run", "app/main.py"]
+CMD ["uv","run", "main.py"]
