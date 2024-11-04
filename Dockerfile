@@ -8,7 +8,6 @@ COPY . ./
 RUN uv venv
 RUN uv pip install -r pyproject.toml
 
-ENV HOST 0.0.0.0
 EXPOSE 5000
 
 CMD ["uv","run", "main.py"]
