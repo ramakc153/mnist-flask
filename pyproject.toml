@@ -1,0 +1,12 @@
+[project]
+name = "mnist-digit-flask"
+version = "0.1.0"
+description = "Add your description here"
+readme = "README.md"
+requires-python = ">=3.12"
+dependencies = [
+    "flask>=3.0.3",
+    "pillow>=11.0.0",
+    "tensorflow>=2.18.0",
+    "utils>=1.0.2",
+]

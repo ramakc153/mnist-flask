@@ -1,0 +1,62 @@
+
+<!DOCTYPE html>
+
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>File Upload</title>
+</head>
+<body>
+    
+<h1>Upload File</h1>
+    <form id="uploadForm" enctype="multipart/form-data" action="/predict" method="post"> 
+        <input type="file" name="file" id="fileInput">
+        <input type="submit" value="Upload">
+    </form>
+    <img id="previewImage" src="#" alt="Preview" style="width: 150px; height: 150px; display: none;">
+
+    <p>result: {{prediction}}</p>
+
+    <!-- <script>
+        const form = document.getElementById('uploadForm');
+        const fileInput = document.getElementById('fileInput');
+
+        form.addEventListener('submit', (event) => {
+            event.preventDefault(); // Prevent default form submission
+
+            const formData = new FormData();
+            formData.append('file', fileInput
+.files[0]); 
+
+            fetch('/predict', { 
+                method: 'POST',
+                body: formData 
+            })
+            .then(response => response.json())
+            .then(data => {
+                console.log('Success:', data); 
+                // Handle the response from the server
+            })
+            .catch((error) => {
+                console.error('Error:', error);
+                // Handle errors
+            });
+        });
+    </script> -->
+    <script>
+        const fileInput = document.getElementById('fileInput');
+        const previewImage = document.getElementById('previewImage');
+
+        fileInput.addEventListener('change', () => {
+            const file = fileInput.files[0];
+            const reader = new FileReader();
+            reader.onload = (e) => {
+                previewImage.src = e.target.result;
+                previewImage.style.display = 'block';
+            };
+            reader.readAsDataURL(file);
+        });
+    </script>
+</body>
+</html>
