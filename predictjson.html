@@ -1,0 +1,43 @@
+<h1>Upload File</h1>
+<form id="uploadForm">
+    <input type="file" name="file" id="fileInput" accept="image/*">
+    <input type="submit" value="Upload">
+</form>
+
+<img id="previewImage" src="#" alt="Preview" style="width: 150px; height: 150px; display: none;">
+<p>Result: <span id="predictionResult"></span></p>
+
+<script>
+    document.getElementById("uploadForm").addEventListener("submit", async function (event) {
+        event.preventDefault();
+        
+        const fileInput = document.getElementById("fileInput");
+        const file = fileInput.files[0];
+        
+        if (file) {
+            const previewImage = document.getElementById("previewImage");
+            previewImage.src = URL.createObjectURL(file);
+            previewImage.style.display = "block";
+
+            const reader = new FileReader();
+            reader.onload = async function () {
+                const base64Image = reader.result.split(",")[1];
+                const payload = JSON.stringify({ image: base64Image });
+
+                try {
+                    const response = await fetch("/predict/json", {
+                        method: "POST",
+                        headers: { "Content-Type": "application/json" },
+                        body: payload
+                    });
+                    
+                    const result = await response.json();
+                    document.getElementById("predictionResult").innerText = result.prediction || "No prediction available";
+                } catch (error) {
+                    console.error("Error:", error);
+                }
+            };
+            reader.readAsDataURL(file);
+        }
+    });
+</script>
